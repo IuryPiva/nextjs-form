@@ -1,6 +1,12 @@
+"use client";
 import React from "react";
-import { Icons } from "./Icons";
 import { Tiny } from "./Text";
+import {
+  FieldValues,
+  useController,
+  UseControllerProps,
+} from "react-hook-form";
+import { Icons } from "./Icons";
 
 const InputTextStyle = {
   fontFamily: "'Switzer'",
@@ -11,27 +17,23 @@ const InputTextStyle = {
   letterSpacing: "0.02em",
 } satisfies React.CSSProperties;
 
-export const Input = React.forwardRef(function Input(
-  props: {
-    icon?: React.FC<React.SVGAttributes<SVGElement>>;
-    hasError?: boolean;
-    errorMessage?: string;
-    inputProps: React.DetailedHTMLProps<
-      React.InputHTMLAttributes<HTMLInputElement>,
-      HTMLInputElement
-    >;
-  },
-  ref: React.Ref<HTMLInputElement>
+export function Input<T extends FieldValues>(
+  props: UseControllerProps<T> & {
+    icon: React.FC<React.SVGAttributes<SVGElement>>;
+    placeholder?: string;
+    type?: string;
+  }
 ) {
-  const hasErrorClassName = props.hasError ? "border-error text-error" : "";
+  const { field, fieldState } = useController(props);
+  const hasErrorClassName = fieldState.invalid ? "border-error text-error" : "";
 
   return (
     <div className="flex flex-col items-start w-full">
-      <label htmlFor={props.inputProps.id} className="flex items-center">
+      <label htmlFor={props.name} className="flex items-center">
         <Tiny.Regular className="uppercase">
-          {props.inputProps.name?.split(/\.?(?=[A-Z])/).join(" ")}
+          {props.name?.split(/\.?(?=[A-Z])/).join(" ")}
         </Tiny.Regular>
-        {props.inputProps.required && (
+        {props.rules?.required && (
           <div className="h-4 w-4 flex items-center justify-center">
             <Icons.RequiredAsterisk />
           </div>
@@ -40,22 +42,23 @@ export const Input = React.forwardRef(function Input(
       <div className="w-full flex gap-1 flex-col">
         <div className="relative w-full ">
           <input
-            {...props.inputProps}
-            ref={ref}
+            {...field}
+            type={props.type}
+            placeholder={props.placeholder}
             style={InputTextStyle}
             className={`w-full border-b border-almost-black py-2 pl-6 bg-almost-white ${hasErrorClassName}`}
           />
-          {props.icon && (
-            <div className="absolute left-0 top-0 bottom-0 flex items-center">
-              {<props.icon fill={props.hasError ? "#FF4141" : "#201E1C"} />}
-            </div>
-          )}
+          <div className={`absolute left-0 top-0 bottom-0 flex items-center`}>
+            <props.icon fill={fieldState.invalid ? "#FF4141" : "#201E1C"} />
+          </div>
         </div>
 
-        {props.hasError && (
-          <Tiny.Light className="text-error">{props.errorMessage}</Tiny.Light>
+        {fieldState.error !== undefined && (
+          <Tiny.Light className="text-error">
+            {fieldState.error?.message}
+          </Tiny.Light>
         )}
       </div>
     </div>
   );
-});
+}
