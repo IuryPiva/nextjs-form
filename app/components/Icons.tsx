@@ -7,7 +7,7 @@ const makeIcon = (name: string, w: number, h?: number) => (
 );
 
 export const Icons = {
-  AllOpen: () => makeIcon("all-open", 9.21),
+  AllOpen: () => makeIcon("all-open", 8),
   Email: () => makeIcon("email", 16, 12),
   Link: () => makeIcon("link", 16, 8),
   CalendarDate: () => makeIcon("calendar-date", 16, 12),
