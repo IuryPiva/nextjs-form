@@ -5,6 +5,7 @@ import { Input } from "./components/Input";
 import { Icons } from "./components/Icons";
 import { Button } from "./components/Button";
 import { useForm, SubmitHandler } from "react-hook-form";
+import StarFilled from "@/public/star-filled.svg";
 
 type Inputs = {
   fullName: string;
@@ -25,14 +26,9 @@ export default function Home() {
 
   const Header = () => (
     <div className="bg-warm-light-gray w-full px-4 py-8 gap-2 flex flex-col">
-      <div className="gap-2 flex">
+      <div className="gap-2 flex items-center">
         <Headers.Primary>Welcome!</Headers.Primary>
-        <Image
-          src="/star-filled.svg"
-          alt="Star filled"
-          width={20}
-          height={20}
-        />
+        <StarFilled width={20} height={20} />
       </div>
       <div>
         <Body.Regular>
@@ -48,32 +44,37 @@ export default function Home() {
         <Body.Bold className="w-full">About you</Body.Bold>
 
         <Input
-          icon={<Icons.Profile />}
-          {...register("fullName", { required: true })}
-          error
+          icon={Icons.Profile}
+          inputProps={{ ...register("fullName", { required: true }) }}
+          hasError
         />
         <Input
-          type="date"
-          icon={<Icons.CalendarDate />}
-          {...register("dateOfBirth")}
+          icon={Icons.CalendarDate}
+          inputProps={{ ...register("dateOfBirth"), type: "date" }}
         />
         <Input
-          icon={<Icons.Send />}
-          placeholder="No spaces"
-          {...register("nickname", { required: true })}
+          icon={Icons.Send}
+          inputProps={{
+            ...register("nickname", { required: true }),
+            placeholder: "No spaces",
+          }}
         />
 
         <Body.Bold className="w-full">Contact Information</Body.Bold>
 
         <Input
-          icon={<Icons.Email />}
-          placeholder="email@domain.com"
-          {...register("email", { required: true })}
+          icon={Icons.Email}
+          inputProps={{
+            ...register("email", { required: true }),
+            placeholder: "email@domain.com",
+          }}
         />
         <Input
-          icon={<Icons.Link />}
-          placeholder="https://"
-          {...register("portfolioLink", { required: true })}
+          icon={Icons.Link}
+          inputProps={{
+            ...register("portfolioLink", { required: true }),
+            placeholder: "https://",
+          }}
         />
       </div>
     </div>

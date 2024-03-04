@@ -1,3 +1,17 @@
+const makeStyledText = (style: React.CSSProperties) =>
+  function StyledText(
+    props: React.DetailedHTMLProps<
+      React.HTMLAttributes<HTMLSpanElement>,
+      HTMLSpanElement
+    >
+  ) {
+    return (
+      <span {...props} style={{ ...props.style, ...style }}>
+        {props.children}
+      </span>
+    );
+  };
+
 const HeadersStyle = {
   primary: {
     fontFamily: "'Switzer'",
@@ -35,46 +49,10 @@ const HeadersStyle = {
 } satisfies Record<string, React.CSSProperties>;
 
 export const Headers = {
-  Primary: (
-    props: React.DetailedHTMLProps<
-      React.HTMLAttributes<HTMLSpanElement>,
-      HTMLSpanElement
-    >
-  ) => (
-    <span {...props} style={{ ...props.style, ...HeadersStyle.primary }}>
-      {props.children}
-    </span>
-  ),
-  Secondary: (
-    props: React.DetailedHTMLProps<
-      React.HTMLAttributes<HTMLSpanElement>,
-      HTMLSpanElement
-    >
-  ) => (
-    <span {...props} style={{ ...props.style, ...HeadersStyle.secondary }}>
-      {props.children}
-    </span>
-  ),
-  Tertiary: (
-    props: React.DetailedHTMLProps<
-      React.HTMLAttributes<HTMLSpanElement>,
-      HTMLSpanElement
-    >
-  ) => (
-    <span {...props} style={{ ...props.style, ...HeadersStyle.tertiary }}>
-      {props.children}
-    </span>
-  ),
-  Display: (
-    props: React.DetailedHTMLProps<
-      React.HTMLAttributes<HTMLSpanElement>,
-      HTMLSpanElement
-    >
-  ) => (
-    <span {...props} style={{ ...props.style, ...HeadersStyle.display }}>
-      {props.children}
-    </span>
-  ),
+  Primary: makeStyledText(HeadersStyle.primary),
+  Secondary: makeStyledText(HeadersStyle.secondary),
+  Tertiary: makeStyledText(HeadersStyle.tertiary),
+  Display: makeStyledText(HeadersStyle.display),
 };
 
 const BodyStyles = {
@@ -137,66 +115,12 @@ const BodyStyles = {
 } satisfies Record<string, React.CSSProperties>;
 
 export const Body = {
-  Light: (
-    props: React.DetailedHTMLProps<
-      React.HTMLAttributes<HTMLSpanElement>,
-      HTMLSpanElement
-    >
-  ) => (
-    <span {...props} style={{ ...props.style, ...BodyStyles.light }}>
-      {props.children}
-    </span>
-  ),
-  Regular: (
-    props: React.DetailedHTMLProps<
-      React.HTMLAttributes<HTMLSpanElement>,
-      HTMLSpanElement
-    >
-  ) => (
-    <span {...props} style={{ ...props.style, ...BodyStyles.regular }}>
-      {props.children}
-    </span>
-  ),
-  Bold: (
-    props: React.DetailedHTMLProps<
-      React.HTMLAttributes<HTMLSpanElement>,
-      HTMLSpanElement
-    >
-  ) => (
-    <span {...props} style={{ ...props.style, ...BodyStyles.bold }}>
-      {props.children}
-    </span>
-  ),
-  Big: (
-    props: React.DetailedHTMLProps<
-      React.HTMLAttributes<HTMLSpanElement>,
-      HTMLSpanElement
-    >
-  ) => (
-    <span {...props} style={{ ...props.style, ...BodyStyles.big }}>
-      {props.children}
-    </span>
-  ),
-  BigMediumShort: (
-    props: React.DetailedHTMLProps<
-      React.HTMLAttributes<HTMLSpanElement>,
-      HTMLSpanElement
-    >
-  ) => (
-    <span {...props} style={{ ...props.style, ...BodyStyles.bigMediumShort }}>
-      {props.children}
-    </span>
-  ),
-  BigBold: (
-    props: React.DetailedHTMLProps<
-      React.HTMLAttributes<HTMLSpanElement>,
-      HTMLSpanElement
-    >
-  ) => (
-    <span {...props} style={{ ...props.style, ...BodyStyles.bigBold }}>
-      {props.children}
-    </span>
-  ),
+  Light: makeStyledText(BodyStyles.light),
+  Regular: makeStyledText(BodyStyles.regular),
+  Bold: makeStyledText(BodyStyles.bold),
+  Big: makeStyledText(BodyStyles.big),
+  BigMediumShort: makeStyledText(BodyStyles.bigMediumShort),
+  BigBold: makeStyledText(BodyStyles.bigBold),
 };
 
 const TinyStyles = {
@@ -209,17 +133,17 @@ const TinyStyles = {
     letterSpacing: "0.03em",
     color: "rgba(32, 30, 28, 0.8)",
   },
+  light: {
+    fontFamily: "Switzer",
+    fontStyle: "normal",
+    fontWeight: 300,
+    fontSize: "12px",
+    lineHeight: "16px",
+    letterSpacing: "0.02em",
+  },
 } satisfies Record<string, React.CSSProperties>;
 
 export const Tiny = {
-  Regular: (
-    props: React.DetailedHTMLProps<
-      React.HTMLAttributes<HTMLSpanElement>,
-      HTMLSpanElement
-    >
-  ) => (
-    <span {...props} style={{ ...props.style, ...TinyStyles.regular }}>
-      {props.children}
-    </span>
-  ),
+  Regular: makeStyledText(TinyStyles.regular),
+  Light: makeStyledText(TinyStyles.light),
 };
