@@ -27,28 +27,33 @@ export const Input = React.forwardRef(function Input(
 
   return (
     <div className="flex flex-col items-start w-full">
-      <label htmlFor={props.inputProps.id} className="flex">
+      <label htmlFor={props.inputProps.id} className="flex items-center">
         <Tiny.Regular className="uppercase">
           {props.inputProps.name?.split(/\.?(?=[A-Z])/).join(" ")}
         </Tiny.Regular>
-        {props.inputProps.required && <Icons.RequiredAsterisk />}
-      </label>
-      <div className="relative w-full flex gap-1">
-        <input
-          {...props.inputProps}
-          ref={ref}
-          style={InputTextStyle}
-          className={`w-full border-b border-almost-black py-2 pl-6 bg-almost-white ${hasErrorClassName}`}
-        />
-        {props.icon && (
-          <div className="absolute left-0 top-0 bottom-0 flex items-center">
-            {<props.icon fill={props.hasError ? "#FF4141" : "#201E1C"} />}
+        {props.inputProps.required && (
+          <div className="h-4 w-4 flex items-center justify-center">
+            <Icons.RequiredAsterisk />
           </div>
         )}
+      </label>
+      <div className="w-full flex gap-1 flex-col">
+        <div className="relative w-full ">
+          <input
+            {...props.inputProps}
+            ref={ref}
+            style={InputTextStyle}
+            className={`w-full border-b border-almost-black py-2 pl-6 bg-almost-white ${hasErrorClassName}`}
+          />
+          {props.icon && (
+            <div className="absolute left-0 top-0 bottom-0 flex items-center">
+              {<props.icon fill={props.hasError ? "#FF4141" : "#201E1C"} />}
+            </div>
+          )}
+        </div>
+
         {props.hasError && (
-          <Tiny.Regular className="text-error mt-1">
-            {props.errorMessage}
-          </Tiny.Regular>
+          <Tiny.Light className="text-error">{props.errorMessage}</Tiny.Light>
         )}
       </div>
     </div>

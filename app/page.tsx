@@ -45,9 +45,14 @@ export default function Home() {
 
         <Input
           icon={Icons.Profile}
-          inputProps={{ ...register("fullName", { required: true }) }}
-          hasError
+          inputProps={{
+            ...register("fullName", { required: "This field is required." }),
+            required: true,
+          }}
+          hasError={errors.fullName !== undefined}
+          errorMessage={errors.fullName?.message}
         />
+        {JSON.stringify(errors.fullName)}
         <Input
           icon={Icons.CalendarDate}
           inputProps={{ ...register("dateOfBirth"), type: "date" }}
@@ -55,7 +60,8 @@ export default function Home() {
         <Input
           icon={Icons.Send}
           inputProps={{
-            ...register("nickname", { required: true }),
+            ...register("nickname", { required: "This field is required." }),
+            required: true,
             placeholder: "No spaces",
           }}
         />
@@ -65,14 +71,18 @@ export default function Home() {
         <Input
           icon={Icons.Email}
           inputProps={{
-            ...register("email", { required: true }),
+            ...register("email", { required: "This field is required." }),
+            required: true,
             placeholder: "email@domain.com",
           }}
         />
         <Input
           icon={Icons.Link}
           inputProps={{
-            ...register("portfolioLink", { required: true }),
+            ...register("portfolioLink", {
+              required: "This field is required.",
+            }),
+            required: true,
             placeholder: "https://",
           }}
         />

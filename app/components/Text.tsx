@@ -6,7 +6,7 @@ const makeStyledText = (style: React.CSSProperties) =>
     >
   ) {
     return (
-      <span {...props} style={{ ...props.style, ...style }}>
+      <span {...props} style={{ ...style, ...props.style }}>
         {props.children}
       </span>
     );
