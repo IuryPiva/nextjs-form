@@ -1,14 +1,11 @@
+import { motion, HTMLMotionProps } from "framer-motion";
+
 const makeStyledText = (style: React.CSSProperties) =>
-  function StyledText(
-    props: React.DetailedHTMLProps<
-      React.HTMLAttributes<HTMLSpanElement>,
-      HTMLSpanElement
-    >
-  ) {
+  function StyledText(props: HTMLMotionProps<"span">) {
     return (
-      <span {...props} style={{ ...style, ...props.style }}>
+      <motion.span {...props} style={{ ...style, ...props.style }}>
         {props.children}
-      </span>
+      </motion.span>
     );
   };
 

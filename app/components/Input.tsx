@@ -1,11 +1,13 @@
 "use client";
 import React from "react";
-import { Tiny } from "./Text";
 import {
   FieldValues,
   useController,
   UseControllerProps,
 } from "react-hook-form";
+import { AnimatePresence } from "framer-motion";
+
+import { Tiny } from "./Text";
 import { Icons } from "./Icons";
 
 const InputTextStyle = {
@@ -53,11 +55,18 @@ export function Input<T extends FieldValues>(
           </div>
         </div>
 
-        {fieldState.error !== undefined && (
-          <Tiny.Light className="text-error">
-            {fieldState.error?.message}
-          </Tiny.Light>
-        )}
+        <AnimatePresence>
+          {fieldState.error !== undefined && (
+            <Tiny.Light
+              className="text-error"
+              initial={{ height: "1px", opacity: 0 }}
+              animate={{ height: "16px", opacity: 1 }}
+              exit={{ height: "1px", opacity: 0 }}
+            >
+              {fieldState.error?.message}
+            </Tiny.Light>
+          )}
+        </AnimatePresence>
       </div>
     </div>
   );
