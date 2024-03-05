@@ -48,9 +48,11 @@ export function Input<T extends FieldValues>(
             type={props.type}
             placeholder={props.placeholder}
             style={InputTextStyle}
-            className={`w-full border-b border-almost-black py-2 pl-6 bg-almost-white ${hasErrorClassName}`}
+            className={`w-full border-b border-almost-black py-2 pl-6 bg-almost-white focus-visible:outline-none focus-visible:border-fresh-orange focus-visible:ring-0 ${hasErrorClassName}`}
           />
-          <div className={`absolute left-0 top-0 bottom-0 flex items-center`}>
+          <div
+            className={`min-w-4 absolute left-0 top-0 bottom-0 flex items-center justify-center`}
+          >
             <props.icon fill={fieldState.invalid ? "#FF4141" : "#201E1C"} />
           </div>
         </div>
