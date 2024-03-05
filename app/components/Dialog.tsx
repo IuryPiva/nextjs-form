@@ -1,14 +1,11 @@
-export const Dialog = (
-  props: React.DetailedHTMLProps<
-    React.HTMLAttributes<HTMLDivElement>,
-    HTMLDivElement
-  >
-) => {
+import { motion, HTMLMotionProps } from "framer-motion";
+
+export const Dialog = (props: HTMLMotionProps<"div">) => {
   return (
-    <div
+    <motion.div
       className="flex flex-col w-full rounded-lg bg-almost-white items-start justify-start overflow-hidden gap-4 min-h-[768px] relative"
       {...props}
-    ></div>
+    ></motion.div>
   );
 };
 
