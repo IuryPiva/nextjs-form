@@ -2,11 +2,10 @@
 import StarFilled from "@/public/star-filled.svg";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { Player, Controls } from "@lottiefiles/react-lottie-player";
-import { AnimatePresence } from "framer-motion";
+import { AnimatePresence, motion } from "framer-motion";
 
 import CloseIcon from "@/public/close-icon.svg";
 
-import { Button } from "./components/Button";
 import { Icons } from "./components/Icons";
 import { Input } from "./components/Input";
 import { Body, Headers } from "./components/Text";
@@ -70,40 +69,38 @@ export default function Home() {
     }
   });
 
-  if (formState.isSubmitSuccessful) {
+  if (formState.isSubmitSuccessful || true) {
     return (
-      <AnimatePresence>
-        <Dialog
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
+      <Dialog className="min-h-[168px]">
+        <motion.div
+          className="flex flex-col items-center justify-center absolute w-8 h-8 right-6 top-6 z-10 hover:bg-gray-shade rounded-full cursor-pointer transition-colors duration-400"
+          whileHover={{
+            rotate: -90,
+            transition: { duration: 0.4, ease: "easeInOut" },
+          }}
+          onClick={() => reset()}
         >
-          <div
-            className="flex flex-col items-center justify-center absolute w-8 h-8 right-6 top-6 z-10"
-            onClick={() => reset()}
-          >
-            <CloseIcon />
+          <CloseIcon />
+        </motion.div>
+        <DialogHeader onClick={() => reset()}>
+          <div className="flex items-center justify-center">
+            <Player
+              autoplay
+              loop
+              src="https://lottie.host/bd72175a-8a58-414d-8e04-6aad6201b6cc/XsV2L4eBXs.json"
+              style={{ height: "80px", width: "80px" }}
+            >
+              <Controls visible={false} />
+            </Player>
           </div>
-          <DialogHeader onClick={() => reset()}>
-            <div className="flex items-center justify-center">
-              <Player
-                autoplay
-                loop
-                src="https://lottie.host/bd72175a-8a58-414d-8e04-6aad6201b6cc/XsV2L4eBXs.json"
-                style={{ height: "80px", width: "80px" }}
-              >
-                <Controls visible={false} />
-              </Player>
-            </div>
-          </DialogHeader>
-          <DialogBody>
-            <Headers.Secondary>Thank you!</Headers.Secondary>
-            <Body.Regular>
-              Your form has been submitted successfully.
-            </Body.Regular>
-          </DialogBody>
-        </Dialog>
-      </AnimatePresence>
+        </DialogHeader>
+        <div className="w-full flex flex-col px-8 gap-4 items-center pb-8">
+          <Headers.Secondary>Thank you!</Headers.Secondary>
+          <Body.Regular>
+            Your form has been submitted successfully.
+          </Body.Regular>
+        </div>
+      </Dialog>
     );
   }
 
