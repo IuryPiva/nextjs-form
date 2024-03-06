@@ -1,23 +1,23 @@
 "use client";
 import StarFilled from "@/public/star-filled.svg";
+import { AnimatePresence } from "framer-motion";
 import { SubmitHandler, useForm } from "react-hook-form";
-import { Player, Controls } from "@lottiefiles/react-lottie-player";
-import { AnimatePresence, motion } from "framer-motion";
 
-import CloseIcon from "@/public/close-icon.svg";
-
-import { Icons } from "./components/Icons";
-import { Input } from "./components/Input";
-import { Body, Headers } from "./components/Text";
 import {
   Dialog,
   DialogActions,
   DialogBody,
   DialogHeader,
 } from "./components/Dialog";
+import { Icons } from "./components/Icons";
+import { Input } from "./components/Input";
 import { SubmitButton } from "./components/SubmitButton";
+import { Body, Headers } from "./components/Text";
+import { save } from "./server";
+import { SubmitSuccessfulDialog } from "./components/SubmitSuccessfulDialog";
+import { useEffect } from "react";
 
-type Inputs = {
+export type Inputs = {
   fullName: string;
   dateOfBirth?: string;
   nickname: string;
@@ -51,15 +51,17 @@ export default function Home() {
     setValue("portfolioLink", "https://johndoe.com");
   };
 
-  // trigger debugFill on cmd + 1
-  window.addEventListener("keydown", (e) => {
-    if (e.key === "1" && e.metaKey) {
-      debugFill();
-    }
-  });
+  useEffect(() => {
+    // trigger debugFill on cmd + 1
+    window.addEventListener("keydown", (e) => {
+      if (e.key === "1" && e.metaKey) {
+        debugFill();
+      }
+    });
+  }, []);
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
+    <form onSubmit={handleSubmit(onSubmit)} action={save}>
       <Dialog className="min-h-[768px]">
         <DialogHeader>
           <div className="gap-2 flex items-center">
@@ -142,48 +144,7 @@ export default function Home() {
 
         <AnimatePresence>
           {formState.isSubmitSuccessful && (
-            <motion.div
-              initial={{ background: "rgba(0, 0, 0, 0)" }}
-              animate={{ background: "rgba(0, 0, 0, 0.5)" }}
-              exit={{ background: "rgba(0, 0, 0, 0)" }}
-              className="absolute h-full flex flex-col justify-end z-20"
-            >
-              <Dialog
-                className="min-h-[304px]"
-                initial={{ y: 304 }}
-                exit={{ y: 304 }}
-                animate={{ y: 0 }}
-              >
-                <motion.div
-                  className="flex flex-col items-center justify-center absolute w-8 h-8 right-6 top-6 z-10 hover:bg-gray-shade rounded-full cursor-pointer transition-colors duration-400"
-                  whileHover={{
-                    rotate: -90,
-                    transition: { duration: 0.4, ease: "easeInOut" },
-                  }}
-                  onClick={() => reset()}
-                >
-                  <CloseIcon />
-                </motion.div>
-                <DialogHeader className="px-8 py-4">
-                  <div className="flex items-center justify-center">
-                    <Player
-                      autoplay
-                      loop
-                      src="https://lottie.host/bd72175a-8a58-414d-8e04-6aad6201b6cc/XsV2L4eBXs.json"
-                      style={{ height: "80px", width: "80px" }}
-                    >
-                      <Controls visible={false} />
-                    </Player>
-                  </div>
-                </DialogHeader>
-                <div className="w-full flex flex-col px-8 gap-4 items-center pb-8">
-                  <Headers.Secondary>Thank you!</Headers.Secondary>
-                  <Body.Regular className="text-center">
-                    Your form has been submitted successfully.
-                  </Body.Regular>
-                </div>
-              </Dialog>
-            </motion.div>
+            <SubmitSuccessfulDialog reset={reset} />
           )}
         </AnimatePresence>
       </Dialog>
