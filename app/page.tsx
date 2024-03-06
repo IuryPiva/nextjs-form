@@ -13,7 +13,7 @@ import { Icons } from "./components/Icons";
 import { Input } from "./components/Input";
 import { SubmitButton } from "./components/SubmitButton";
 import { Body, Headers } from "./components/Text";
-import { save } from "./server";
+import { isNicknameAvailable, save } from "./actions";
 import { SubmitSuccessfulDialog } from "./components/SubmitSuccessfulDialog";
 import { useEffect } from "react";
 
@@ -35,12 +35,13 @@ export default function Home() {
         email: "",
         portfolioLink: "",
       },
-      mode: "onChange",
+      mode: "all",
     }
   );
 
   const onSubmit: SubmitHandler<Inputs> = (data) => {
     console.log({ data });
+    save(data);
   };
 
   const debugFill = () => {
@@ -58,10 +59,10 @@ export default function Home() {
         debugFill();
       }
     });
-  }, []);
+  });
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} action={save}>
+    <form onSubmit={handleSubmit(onSubmit)}>
       <Dialog className="min-h-[768px]">
         <DialogHeader>
           <div className="gap-2 flex items-center">
@@ -97,9 +98,12 @@ export default function Home() {
             name="nickname"
             rules={{
               required: "This field is required.",
-              validate: (value) => {
+              validate: async (value) => {
                 if (!value) return "This field is required.";
                 if (value.includes(" ")) return "No spaces allowed.";
+
+                const isAvailable = await isNicknameAvailable(value);
+                if (!isAvailable) return "This nickname is already taken.";
               },
             }}
             placeholder="No spaces"
