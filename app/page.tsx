@@ -17,6 +17,7 @@ import {
   DialogHeader,
 } from "./components/Dialog";
 import { useState } from "react";
+import { SubmitButton } from "./components/SubmitButton";
 
 type Inputs = {
   fullName: string;
@@ -109,11 +110,7 @@ export default function Home() {
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       <AnimatePresence>
-        <Dialog
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
-        >
+        <Dialog className="min-h-[768px]">
           <DialogHeader>
             <div className="gap-2 flex items-center">
               <Headers.Primary>Welcome!</Headers.Primary>
@@ -190,9 +187,7 @@ export default function Home() {
             />
           </DialogBody>
           <DialogActions>
-            <Button>
-              Submit my form <Icons.AllOpen fill="#201E1C" />
-            </Button>
+            <SubmitButton />
           </DialogActions>
         </Dialog>
       </AnimatePresence>

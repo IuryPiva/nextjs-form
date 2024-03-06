@@ -3,8 +3,8 @@ import { motion, HTMLMotionProps } from "framer-motion";
 export const Dialog = (props: HTMLMotionProps<"div">) => {
   return (
     <motion.div
-      className="flex flex-col w-full rounded-lg bg-almost-white items-start justify-start overflow-hidden gap-4 min-h-[768px] relative"
       {...props}
+      className={`flex flex-col w-full rounded-lg bg-almost-white items-start justify-start overflow-hidden gap-4 relative ${props.className}`}
     ></motion.div>
   );
 };
