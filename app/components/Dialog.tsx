@@ -4,7 +4,7 @@ export const Dialog = (props: HTMLMotionProps<"div">) => {
   return (
     <motion.div
       {...props}
-      className={`flex flex-col w-full rounded-lg bg-almost-white items-start justify-start overflow-hidden gap-4 relative ${props.className}`}
+      className={`flex flex-col w-full rounded-2xl bg-almost-white items-start justify-start overflow-hidden gap-4 relative ${props.className}`}
     ></motion.div>
   );
 };
@@ -44,8 +44,8 @@ export const DialogHeader = (
 ) => {
   return (
     <div
-      className="bg-warm-light-gray w-full px-4 py-8 gap-2 flex flex-col"
       {...props}
+      className={`bg-warm-light-gray w-full px-4 py-8 gap-2 flex flex-col ${props.className}`}
     ></div>
   );
 };
