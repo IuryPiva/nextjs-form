@@ -153,7 +153,6 @@ export default function Home() {
                 initial={{ y: 304 }}
                 exit={{ y: 304 }}
                 animate={{ y: 0 }}
-                transition={{ duration: 0.4 }}
               >
                 <motion.div
                   className="flex flex-col items-center justify-center absolute w-8 h-8 right-6 top-6 z-10 hover:bg-gray-shade rounded-full cursor-pointer transition-colors duration-400"
@@ -165,7 +164,7 @@ export default function Home() {
                 >
                   <CloseIcon />
                 </motion.div>
-                <DialogHeader onClick={() => reset()} className="px-8 py-4">
+                <DialogHeader className="px-8 py-4">
                   <div className="flex items-center justify-center">
                     <Player
                       autoplay
