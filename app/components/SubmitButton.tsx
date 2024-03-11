@@ -1,7 +1,6 @@
 import { motion, Variants, Transition } from "framer-motion";
 import { Button } from "../components/Button";
 import { Icons } from "../components/Icons";
-import { Dialog } from "../components/Dialog";
 import { Body } from "../components/Text";
 
 export const SubmitButton = () => {
