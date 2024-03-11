@@ -138,9 +138,18 @@ const TinyStyles = {
     lineHeight: "16px",
     letterSpacing: "0.02em",
   },
+  tiny: {
+    fontFamily: "'Switzer'",
+    fontStyle: "normal",
+    fontWeight: "400",
+    fontSize: "12px",
+    lineHeight: "197%",
+    letterSpacing: "0.03em",
+  },
 } satisfies Record<string, React.CSSProperties>;
 
 export const Tiny = {
   Regular: makeStyledText(TinyStyles.regular),
   Light: makeStyledText(TinyStyles.light),
+  Tiny: makeStyledText(TinyStyles.tiny),
 };

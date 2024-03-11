@@ -97,6 +97,7 @@ export default function Home() {
             control={control}
             name="nickname"
             rules={{
+              maxLength: 25,
               required: "This field is required.",
               validate: async (value) => {
                 if (!value) return "This field is required.";

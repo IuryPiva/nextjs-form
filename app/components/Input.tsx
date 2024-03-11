@@ -5,7 +5,7 @@ import {
   useController,
   UseControllerProps,
 } from "react-hook-form";
-import { AnimatePresence } from "framer-motion";
+import { AnimatePresence, HTMLMotionProps, motion } from "framer-motion";
 
 import { Tiny } from "./Text";
 import { Icons } from "./Icons";
@@ -19,6 +19,13 @@ const InputTextStyle = {
   letterSpacing: "0.02em",
 } satisfies React.CSSProperties;
 
+const NotificationDot = (props: HTMLMotionProps<"div">) => (
+  <motion.div
+    {...props}
+    className={`rounded-2xl bg-almost-black w-[50px] h-6 flex flex-col justify-center items-center px-2 ${props.className}`}
+  ></motion.div>
+);
+
 export function Input<T extends FieldValues>(
   props: UseControllerProps<T> & {
     icon: React.FC<React.SVGAttributes<SVGElement>>;
@@ -28,6 +35,10 @@ export function Input<T extends FieldValues>(
 ) {
   const { field, fieldState } = useController(props);
   const hasErrorClassName = fieldState.invalid ? "border-error text-error" : "";
+
+  const maxLength = props.rules?.maxLength
+    ? parseInt(props.rules.maxLength.toString())
+    : null;
 
   return (
     <div className="flex flex-col items-start w-full">
@@ -42,7 +53,7 @@ export function Input<T extends FieldValues>(
         )}
       </label>
       <div className="w-full flex gap-1 flex-col">
-        <div className="relative w-full ">
+        <div className="relative w-full group">
           <input
             {...field}
             type={props.type}
@@ -55,6 +66,25 @@ export function Input<T extends FieldValues>(
           >
             <props.icon fill={fieldState.invalid ? "#FF4141" : "#201E1C"} />
           </div>
+          {maxLength && (
+            <div
+              className={`min-w-4 absolute right-0 top-0 bottom-0 flex items-center justify-center group-focus-within:opacity-100 opacity-0 transition-opacity duration-200`}
+            >
+              <NotificationDot>
+                <Tiny.Tiny className="text-white">
+                  {field.value.length}/{maxLength}
+                </Tiny.Tiny>
+              </NotificationDot>
+            </div>
+          )}
+          {maxLength && (
+            <div
+              className={`bg-warm-mid-gray right-0 h-[1px] absolute bottom-0 group-focus-within:opacity-100 opacity-0 transition-opacity duration-200`}
+              style={{
+                width: `${100 - (field.value.length / maxLength) * 100}%`,
+              }}
+            ></div>
+          )}
         </div>
 
         <AnimatePresence>
