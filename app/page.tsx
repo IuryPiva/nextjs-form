@@ -40,7 +40,6 @@ export default function Home() {
   );
 
   const onSubmit: SubmitHandler<Inputs> = (data) => {
-    console.log({ data });
     save(data);
   };
 
@@ -132,7 +131,7 @@ export default function Home() {
             name="portfolioLink"
             rules={{
               required: "This field is required.",
-              // https://stackoverflow.com/a/58172035
+              // https://stackoverflow.com/a/58172035 valid URL regex
               pattern: {
                 value:
                   /[Hh][Tt][Tt][Pp][Ss]?:\/\/(?:(?:[a-zA-Z\u00a1-\uffff0-9]+-?)*[a-zA-Z\u00a1-\uffff0-9]+)(?:\.(?:[a-zA-Z\u00a1-\uffff0-9]+-?)*[a-zA-Z\u00a1-\uffff0-9]+)*(?:\.(?:[a-zA-Z\u00a1-\uffff]{2,}))(?::\d{2,5})?(?:\/[^\s]*)?/,

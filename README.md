@@ -16,21 +16,23 @@ bun dev
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### Overall structure
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+This is Next.js 14 app, with App router. The ideia was to create as many reusable components.
 
-## Learn More
+- Some styling was done directly on `style` prop to make easy export and checking with the design.
+- The `Lottie` animation was imported with [dynamic imports](https://nextjs.org/docs/pages/building-your-application/optimizing/lazy-loading#nextdynamic) because it was throwing an error even with `use client` directive.
+- Using [`svgr`](https://github.com/gregberge/svgr) to load svg's directly from files.
+- A debug function is available to fill the form automatically for test purposes with `cmd + 1`/`ctrl + 1`.
 
-To learn more about Next.js, take a look at the following resources:
+### Animations
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+To implement the animations on component unmount, the lib [`framer-motion`](https://www.framer.com/motion/) was used instead of `tailwindcss` animations.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+### Form submission
 
-## Deploy on Vercel
+Form submission is handled with [Next.js Server Actions](https://nextjs.org/docs/app/building-your-application/data-fetching/server-actions-and-mutations). As well as nickname availability check.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+### Input type date - Native calendar
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+Adding type date to the input, caused the OS to add a calendar icon next to it. Which changes the design but was left in favor of the acessibility provided by it. I assume the final the application would have a custom calendar component/date input that is not present in the figma design.
